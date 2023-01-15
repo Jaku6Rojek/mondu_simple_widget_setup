@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+<script src="https://checkout.demo.mondu.ai/widget.js"></script>
+<style>
+    #mondu-checkout-widget>div {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    #mondu-token {
+        width: 25%;
+    }
+</style>
+
+<body>
+    <h1>Mondu testing playground.</h1>
+    <p>BNPL for B2B</p>
+    <div id="mondu-checkout-widget"></div>
+    <input id="mondu-token" type="text" id="fname" name="fname" value="..."><br>
+    <button id="checkoutButton">Pay with mondu</button>
+    <div id="showToken"></div>
+</body>
+
+<script>
+
+    const checkoutButton = document.querySelector("#checkoutButton");
+    const monduOrderToken = document.querySelector("#mondu-token");
+    const showToken = document.querySelector("#showToken");
+
+    //const checkoutToken = monduOrderToken.value;
+    checkoutToken = "eyJhbGciOiJIUzI1NiJ9.eyJvcmRlcl9pZCI6NjM1MCwidXVpZCI6IiIsIm5hbWUiOiIiLCJzZXNzaW9uIjoiMDJlNzAxNTAtMGU5NC00OTkxLTkxZjItYzhkZjVjMjlhMDg5IiwiZXhwIjoxNjc1NTkzMTkwLCJyb2xlcyI6IiIsInBlcm1pc3Npb25zIjoiIiwicGFzc3dvcmRfY2hhbmdlX3JlcXVpcmVkIjoiIiwibWVyY2hhbnRfbmFtZSI6IiIsIm1lcmNoYW50X3V1aWQiOiIiLCJjcmVhdGVkX2F0IjoiMjAyMy0wMS0wNiAxMDozMzoxMCBVVEMifQ.verm0EtiXjawFDr25TWQu1c-lWWTSLCKTCVZw5U-K9Y";
+    monduOrderToken.value = checkoutToken;
+    checkoutToken = "123";
+    checkoutToken = monduOrderToken.value;
+    console.log('Mondu Order Token: ', checkoutToken);
+
+    const checkoutOptions = {
+        token: checkoutToken,
+        onClose: () => { },
+        onCancel: () => { },
+        onSuccess: () => { },
+        onError: (err) => { }
+    };
+
+    //window.monduCheckout.init(checkoutOptions);
+    // from backend POST Orders response
+
+    checkoutButton.onclick = function () {
+        checkoutToken = monduOrderToken.value;
+        checkoutOptions.token = monduOrderToken.value;
+        console.log('Mondu Order Token: ', checkoutToken);
+        console.log('Checkout Button: ', checkoutButton);
+        console.log('Checkout Token: ', checkoutToken);
+        console.log('options', checkoutOptions.token);
+        showToken.innerHTML = checkoutOptions.token;
+        window.monduCheckout.render(checkoutOptions);
+    };
+</script>
+
+</html>
